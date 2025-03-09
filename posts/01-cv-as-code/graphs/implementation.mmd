@@ -1,0 +1,16 @@
+flowchart LR
+    subgraph database
+        yml
+    end
+    subgraph filter
+        direction TB
+        jqfilter
+        jq
+    end
+    subgraph theme
+        nix
+    end
+    database --> filter
+    jqfilter[jq filter] --> jq
+    filter --> theme
+

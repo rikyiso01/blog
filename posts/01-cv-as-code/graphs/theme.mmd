@@ -1,0 +1,15 @@
+flowchart LR
+    subgraph theme
+        jinja[jinja2-cli]
+        pandoc
+        css[custom css]
+        pagedjs-cli
+        markdown[jinja markdown template]
+    end
+    input --json--> jinja
+    markdown --> jinja
+    jinja --markdown--> pandoc
+    pandoc --html--> pagedjs-cli
+    css --css--> pagedjs-cli
+    pagedjs-cli --pdf--> output
+
