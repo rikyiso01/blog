@@ -4,10 +4,10 @@ flowchart LR
         pandoc
         css[custom css]
         pagedjs-cli
-        markdown[jinja markdown template]
+        markdown[Template]
     end
-    input --json--> jinja
-    markdown --> jinja
+    input ---> |json|jinja
+    markdown --> |jinja markdown|jinja
     jinja --markdown--> pandoc
     pandoc --html--> pagedjs-cli
     css --css--> pagedjs-cli

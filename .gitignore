@@ -1,0 +1,6 @@
+/out
+
+### Created by https://www.gitignore.io
+### direnv ###
+.direnv
+.envrc
