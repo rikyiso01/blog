@@ -6,3 +6,6 @@ out/%.svg: posts/%.mmd
 	mkdir -p "$$(dirname $@)"
 	mmdc -i $< -o $@
 
+out/%.png: posts/%.mmd
+	mkdir -p "$$(dirname $@)"
+	mmdc -i $< -o $@

@@ -1,14 +1,20 @@
-# CV as code
+---
+title: Overengineer your CV
+published: true
+description: An overengineered Curriculum Vitae
+tags: architecture, learning, tooling
+cover_image: https://dev-to-uploads.s3.amazonaws.com/uploads/articles/7m8lf74czkq4t0qujp4n.png
+# Use a ratio of 100:42 for best results.
+# published_at: 2025-03-13 15:51 +0000
+---
 
 Hi everyone, I'm [rikyiso01](https://github.com/rikyiso01), this is my first blog post, I hope you will like it.
 
 ## Introduction
 
-Every time I have to apply for a job or for an activity I have to submit a CV tailored
-for the position I am about to cover.
+Every time I have to apply for a job or for an activity I have to submit a CV tailored for the position I am about to cover.
 
-There are online tools for helping you manage your CV but since I am a programmer I wanted
-a more code focused approach.
+There are online tools for helping you manage your CV but since I am a programmer I wanted a more code focused approach.
 
 ## Inspirational reading
 
@@ -20,19 +26,15 @@ a more code focused approach.
     Uses YAML to store generic data but the templating system is locked with Jekyll,
     I wanted a more generic structure for the themes to support any template system
 
-After reading these articles I decided to tackle this problem in my own way since none
-of the projects satisfied my needs.
+After reading these articles I decided to tackle this problem in my own way since none of the projects satisfied my needs.
 
 ## Ideas
 
-A curriculum vitae is just a collection of stuff you have done.
-This collection can be stored inside a database.
+A curriculum vitae is just a collection of stuff you have done. This collection can be stored inside a database.
 
-When you tailor your curriculum for a specific job, you are just selecting a subset of
-elements from the database.
+When you tailor your curriculum for a specific job, you are just selecting a subset of elements from the database.
 
-Then finally to the selected subset you apply a theme in order to make it pleasing for
-the eye.
+Then finally to the selected subset you apply a theme in order to make it pleasing for the eye.
 
 ## Requirements for the project
 
@@ -50,16 +52,14 @@ So, starting from this idea and the requirements, I can create my tool by compos
 2. A filter
 3. A theme
 
-![Flowchart of the previously described architecture](graphs/architecture.svg)
+![Flowchart of the previously described architecture](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/gw22hxqhycn2wail54ip.png)
 
 ## Implementation
 
 ### Database
 
-For implementing the database I have decided to use a YAML file since it is possible to
-edit it using a text editor.
-For structuring the YAML file, I have decided to use as a base the [json-resume](https://jsonresume.org/)
-JSON-Schema.
+For implementing the database I have decided to use a YAML file since it is possible to edit it using a text editor.
+For structuring the YAML file, I have decided to use as a base the [json-resume](https://jsonresume.org/) JSON-Schema.
 Since the schema is a little limited I have added some more fields and renamed some to satisfy my needs.
 
 Extract from my YAML database:
@@ -79,11 +79,9 @@ work:
 
 ### Filter
 
-Then the content of the YAML is passed to a program called [yq](https://github.com/mikefarah/yq)
-which takes a [jq-filter](https://jqlang.org/) as an input and returns a json with the
-filter applied to it as an output.
+Then the content of the YAML is passed to a program called [yq](https://github.com/mikefarah/yq) which takes a [jq-filter](https://jqlang.org/) as an input and returns a json with the filter applied to it as an output.
 
-Example of jq-filter:
+Example of a jq-filter for selecting a subset of elements in the database:
 ```jq
 .education |= [.[]|select(
     .studyType=="bachelors"
@@ -103,9 +101,8 @@ Example of jq-filter:
 
 ### Theme
 
-For implementing the themes I have decided to use [nix](https://nixos.org/) [flakes](https://wiki.nixos.org/wiki/Flakes)
-since they allow each theme to specify their own dependencies and which command to run with
-the resulting JSON from the previous step as input.
+For implementing the themes I have decided to use [nix](https://nixos.org/) [flakes](https://wiki.nixos.org/wiki/Flakes) since they allow each theme to specify their own dependencies and which command to run with the resulting JSON from the previous step as input.
+Another alternative could have been to use [docker](https://www.docker.com/), but I wanted to learn more about nix.
 
 ### Pipeline
 
@@ -115,12 +112,11 @@ yq -f "$filter" "$data" | nix run "$theme"
 ```
 resulting in the following architecture:
 
-![Flowchart of the pipeline](graphs/implementation.svg)
+![Flowchart of the pipeline](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/muc7xs4vvmqqp07fciwu.png)
 
 ## Theme example
 
-Since I like standards, I have decided to use as my first theme example, an [Europass](https://europass.europa.eu/en)
-like theme (I know, a lot of people hate this format).
+Since I like standards, I have decided to use as my first theme example, an [Europass](https://europass.europa.eu/en) like theme (I know, a lot of people hate this format).
 
 
 For structuring this theme I have decided to use the following architecture:
@@ -131,7 +127,7 @@ For structuring this theme I have decided to use the following architecture:
 3. To the resulting HTML is applied a custom CSS which tries to mimic the Europass theme,
     and it is converted to a PDF using [pagedjs-cli](https://www.npmjs.com/package/pagedjs-cli)
 
-![Flowchart of the theme architecture](graphs/theme.svg)
+![Flowchart of the theme architecture](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/62lqpmwhjyiubxmgukbw.png)
 
 Bash command which is run by the nix flake:
 ```bash
@@ -145,15 +141,13 @@ pagedjs-cli result.html --output result.pdf
 An example of the PDF rendering using the Europass theme can be found
 [here](https://github.com/rikyiso01/cv/releases/download/internship/cv.pdf).
 
-![Example of a rendering using the Europass theme](images/cv1.png)
-![Another example of a rendering using the Europass theme](images/cv2.png)
+Pictures of part of the PDF:
+![Example of a rendering using the Europass theme](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ozraziij0h88qnp3mgha.png)
+![Another example of a rendering using the Europass theme](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/rnn2zsvz8f9pgreip297.png)
 
 ## Language support
 
-Since I am currently in Italy, sometimes I need my curriculum to be translated into Italian,
-an extension of the architecture to support multiple languages can be to add a language
-entry into the YAML database and then use that entry in the theme to change the language
-of the applied theme.
+Since I am currently in Italy, sometimes I need my curriculum to be translated into Italian, an extension of the architecture to support multiple languages can be to add a language entry into the YAML database and then use that entry in the theme to change the language of the applied theme.
 
 ## Code
 
@@ -166,8 +160,7 @@ The code for the tool and my CVs created with it can be found on my [GitHub repo
 
 ## Conclusion
 
-This architecture was very funny to design and implement,
-maybe it is a little overkill, but I like it.
-I will in the immediate future use it and see if it will be able to scale to all the
-possible occasions I will need a CV.
+This architecture was very funny to design and implement, maybe it is a little overkill, but I like it.
+I will in the immediate future use it and see if it will be able to scale to all the possible occasions I will need a CV.
+
 Thanks for reading.

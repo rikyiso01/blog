@@ -9,7 +9,7 @@ make -f scripts/compile.makefile "out/$postname/index.html"
 for file in posts/"$postname"/graphs/*.mmd
 do
     graphname="$(basename "$file" .mmd)"
-    make -f scripts/compile.makefile "out/$postname/graphs/$graphname.svg"
+    make -f scripts/compile.makefile "out/$postname/graphs/$graphname.png"
 done
 
 mkdir -p "out/$postname/images"
