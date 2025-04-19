@@ -3,7 +3,7 @@ title: virt-compose
 published: false
 description: Declarative virtual machine management
 tags: tooling, virtualization
-cover_image:
+cover_image: https://raw.githubusercontent.com/rikyiso01/blog/main/posts/02-virt-compose/images/libvirt-compose.jpg
 ---
 
 ## Introduction
