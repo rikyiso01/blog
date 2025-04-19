@@ -1,10 +1,11 @@
 ---
 title: virt-compose
-published: false
+published: true
 description: Declarative virtual machine management
 tags: 'tooling, virtualization'
 cover_image: ./images/libvirt-compose.jpg
 id: 2418495
+date: '2025-04-19T17:38:57Z'
 ---
 
 ## Introduction
