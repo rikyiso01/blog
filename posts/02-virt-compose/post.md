@@ -2,42 +2,34 @@
 title: virt-compose
 published: false
 description: Declarative virtual machine management
-tags: tooling, virtualization
-cover_image: https://raw.githubusercontent.com/rikyiso01/blog/main/posts/02-virt-compose/images/libvirt-compose.jpg
+tags: 'tooling, virtualization'
+cover_image: ./images/libvirt-compose.jpg
+id: 2418495
 ---
 
 ## Introduction
 
 I really like containers but sometimes a virtual machine is necessary for certain jobs.
-For example when I need to test my arch installation script I need to use a virtual machine
-to see if the installation process completes successfully.
-But, I find virtual machines harder to maintain than containers due to their primarily
-imperative tools.
-I like qemu for its wide range support, but I don't like its defaults and flags for achieving
-greater performances.
-I like libvirt for its abstraction over virtualization solutions, but I find its cli, virsh,
-hard to use.
-Also, when deploying complex scenarios, these tools become harder to use due to their
-targeting single machines.
-I want a solution that helps you from building images to running them in a declarative
-way from the cli.
+For example when I need to test my arch installation script I need to use a virtual machine to see if the installation process completes successfully.
+But, I find virtual machines harder to maintain than containers due to their primarily imperative tools.
+I like qemu for its wide range support, but I don't like its defaults and flags for achieving greater performances.
+I like libvirt for its abstraction over virtualization solutions, but I find its cli, virsh, hard to use.
+Also, when deploying complex scenarios, these tools become harder to use due to their targeting single machines.
+I want a solution that helps you from building images to running them in a declarative way from the cli.
 
 ## Inspiration
 
-- [quickemu](https://github.com/quickemu-project/quickemu): It doesn't support automated
-    installations
+- [quickemu](https://github.com/quickemu-project/quickemu): It doesn't support automated installations
 
 ## Idea
 
-Create a docker-compose like command-line application that allows to easily build and
-deploy virtual machines on libvirt.
+Create a docker-compose like command-line application that allows to easily build and deploy virtual machines on libvirt.
 
 ## Implementation
 
 ### Format
 
-For the compose file which defines the sets of virtual machines, I have decided to use a
-format similar to a docker-compose.yml:
+For the compose file which defines the sets of virtual machines, I have decided to use a format similar to a docker-compose.yml:
 
 ```yaml
 machines:
@@ -57,12 +49,9 @@ images:
 
 ### Building an image
 
-For building, I have decided to use packer since it has a lot of examples available online for
-building common images.
-However, I don't like the hcl file format due to the limited amount of tooling available for
-it, so I have decided to use the [json configuration syntax](https://developer.hashicorp.com/packer/docs/templates/hcl_templates/syntax-json).
-Since I like yaml more than json and since packer [doesn't support](https://github.com/hashicorp/packer/issues/4200) it natively, the program
-firstly converts the yaml to a temporary json and then executes packer.
+For building, I have decided to use packer since it has a lot of examples available online for building common images.
+However, I don't like the hcl file format due to the limited amount of tooling available for it, so I have decided to use the [json configuration syntax](https://developer.hashicorp.com/packer/docs/templates/hcl_templates/syntax-json).
+Since I like yaml more than json and since packer [doesn't support](https://github.com/hashicorp/packer/issues/4200) it natively, the program firstly converts the yaml to a temporary json and then executes packer.
 
 Example:
 
@@ -122,8 +111,6 @@ nix -- run github:rikyiso01/virt-compose up
 
 ## Conclusions
 
-I like having a set of files for easily setting up and running virtual machines, I am using
-this prototype since some months and I find it very useful for testing local setups and
-home servers.
-I will continue in the future to use it and fix bugs until I find a use case which isn't easily covered
-by this approach.
+I like having a set of files for easily setting up and running virtual machines, I am using this prototype since some months and I find it very useful for testing local setups and home servers.
+I will continue in the future to use it and fix bugs until I find a use case which isn't easily covered by this approach.
+

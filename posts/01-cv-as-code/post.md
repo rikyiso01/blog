@@ -2,10 +2,10 @@
 title: Overengineer your CV
 published: true
 description: An overengineered Curriculum Vitae
-tags: architecture, learning, tooling
-cover_image: https://dev-to-uploads.s3.amazonaws.com/uploads/articles/7m8lf74czkq4t0qujp4n.png
-# Use a ratio of 100:42 for best results.
-# published_at: 2025-03-13 15:51 +0000
+tags: 'architecture, learning, tooling'
+cover_image: ./images/cover.png
+id: 2330981
+date: '2025-03-13T16:05:36Z'
 ---
 
 Hi everyone, I'm [rikyiso01](https://github.com/rikyiso01), this is my first blog post, I hope you will like it.
@@ -52,7 +52,7 @@ So, starting from this idea and the requirements, I can create my tool by compos
 2. A filter
 3. A theme
 
-![Flowchart of the previously described architecture](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/gw22hxqhycn2wail54ip.png)
+![Flowchart of the previously described architecture](./graphs-bin/architecture.png)
 
 ## Implementation
 
@@ -112,7 +112,7 @@ yq -f "$filter" "$data" | nix run "$theme"
 ```
 resulting in the following architecture:
 
-![Flowchart of the pipeline](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/muc7xs4vvmqqp07fciwu.png)
+![Flowchart of the pipeline](./graphs-bin/implementation.png)
 
 ## Theme example
 
@@ -127,7 +127,7 @@ For structuring this theme I have decided to use the following architecture:
 3. To the resulting HTML is applied a custom CSS which tries to mimic the Europass theme,
     and it is converted to a PDF using [pagedjs-cli](https://www.npmjs.com/package/pagedjs-cli)
 
-![Flowchart of the theme architecture](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/62lqpmwhjyiubxmgukbw.png)
+![Flowchart of the theme architecture](./graphs-bin/theme.png)
 
 Bash command which is run by the nix flake:
 ```bash
@@ -142,8 +142,8 @@ An example of the PDF rendering using the Europass theme can be found
 [here](https://github.com/rikyiso01/cv/releases/download/internship/cv.pdf).
 
 Pictures of part of the PDF:
-![Example of a rendering using the Europass theme](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ozraziij0h88qnp3mgha.png)
-![Another example of a rendering using the Europass theme](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/rnn2zsvz8f9pgreip297.png)
+![Example of a rendering using the Europass theme](./images/cv1.png)
+![Another example of a rendering using the Europass theme](./images/cv2.png)
 
 ## Language support
 

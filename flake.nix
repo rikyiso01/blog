@@ -23,6 +23,8 @@
             pkgs.just
             pkgs.mermaid-cli
             pkgs.live-server
+            pkgs.pnpm
+            pkgs.nodejs
           ];
         };
       }
